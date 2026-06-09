@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventLog — Plataforma Logística</title>
+</head>
+<body>
+
+ 
+  <nav>
+
+    
+    <span> EventLog</span>
+
+    
+    <ul>
+      <li>Inicio</li>
+      <li>Inventario</li>
+      <li>Eventos</li>
+      <li>Personal</li>
+    </ul>
+
+    
+    <span>Cristian, Felipe, Adrian — Administradores</span>
+
+  </nav>
+
+ 
+  <main>
+
+    
+    <h1>Inventario de recursos</h1>
+    <p>Controla los bienes físicos disponibles para tus eventos</p>
+
+    
+    <section>
+      <h2>Agregar recurso</h2>
+
+      <div>   
+        <div>
+          <label for="inp-nombre">Nombre del recurso</label>
+          <input
+            type="text"
+            id="inp-nombre"
+            placeholder="Ej: Silla plegable negra"
+          >
+        </div>   
+        <div>
+          <label for="inp-categoria">Categoría</label>
+          <select id="inp-categoria">
+            <option value="">Selecciona una categoría</option>
+            <option value="Mobiliario">Mobiliario</option>
+            <option value="Sonido">Sonido</option>
+            <option value="Iluminación">Iluminación</option>
+            <option value="Proyección">Proyección</option>
+            <option value="Catering">Catering</option>
+            <option value="Carpas y estructuras">Carpas y estructuras</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>   
+        <div>
+          <label for="inp-cantidad">Cantidad</label>
+          <input
+            type="number"
+            id="inp-cantidad"
+            placeholder="0"
+            min="0"
+          >
+        </div>  
+        <div>
+          <label for="inp-estado">Estado</label>
+          <select id="inp-estado">
+            <option value="Disponible">Disponible</option>
+            <option value="En uso">En uso</option>
+            <option value="Dañado">Dañado</option>
+          </select>
+        </div>
+        <button id="btn-agregar">Agregar recurso</button>
+      </div>
+      <h2>Lista de recursos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Recurso</th>
+            <th>Categoría</th>
+            <th>Cantidad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-recursos-body">
+          <tr>
+            <td colspan="5">No hay recursos registrados aún.</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </section> 
+    <section>
+      <h2>Gestión de eventos</h2>
+      <p>Esta sección se construirá próximamente.</p>
+    </section>
+    <section>
+      <h2>Gestión de personal</h2>
+      <p>Esta sección se construirá próximamente.</p>
+    </section>
+
+  </main>
+
+</body>
+</html>
