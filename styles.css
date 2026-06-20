@@ -75,6 +75,12 @@ nav ul li:hover {
   color: #ffffff;
 }
 
+/* Opción del menú actualmente seleccionada */
+nav ul li.active {
+  background-color: var(--color-acento);
+  color: #ffffff;
+}
+
 /* Nombres de los administradores abajo en la barra lateral */
 nav > span:last-child {
   font-size: 12px;
@@ -90,6 +96,16 @@ main {
   margin-left: 260px;
   padding: 40px;
   width: calc(100% - 260px);
+}
+
+/* Cada bloque .page representa el contenido de una opción del menú.
+   Por defecto está oculto; el JS le agrega/quita la clase "active". */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
 }
 
 main h1 {
