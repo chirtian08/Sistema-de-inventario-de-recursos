@@ -1,105 +1,134 @@
 /* ==========================================================================
-   1. VARIABLES DE DISEÑO (AZUL, BLANCO Y NEGRO)
+   EVENTLOG — ESTILOS CSS
+   Diseño: Degradado azul profesional
+   Paleta: Azul oscuro → Azul medio → Azul claro
    ========================================================================== */
+
+/* ── Variables de color ── */
 :root {
-  --bg-principal: #ffffff;    /* Fondo de la página: Blanco total */
-  --bg-tarjetas: #f8fafc;     /* Fondo de contenedores: Blanco/Gris muy claro */
-  --bg-sidebar: #0f172a;      /* Fondo de la barra lateral: Azul marino muy oscuro (casi negro) */
-  --texto-claro: #0f172a;     /* Texto principal: Negro/Azul oscuro para alta legibilidad */
-  --texto-mutado: #64748b;    /* Texto secundario: Gris para etiquetas y descripciones */
-  --color-acento: #1e40af;    /* Color de identidad: Azul rey */
-  --color-hover: #1d4ed8;     /* Azul más vivo cuando pasas el mouse */
-  --borde-sutil: #e2e8f0;     /* Líneas divisorias: Gris claro sutil */
-  --fuente-sistema: 'Segoe UI', Roboto, sans-serif;
+  --degradado-fondo:  linear-gradient(135deg, #0a1628 0%, #0d2150 40%, #1a3a7a 70%, #1e56b0 100%);
+  --degradado-boton:  linear-gradient(135deg, #1A56DB, #3B8BEB);
+  --blanco-10:        rgba(255, 255, 255, 0.10);
+  --blanco-08:        rgba(255, 255, 255, 0.08);
+  --blanco-06:        rgba(255, 255, 255, 0.06);
+  --blanco-15:        rgba(255, 255, 255, 0.15);
+  --blanco-12:        rgba(255, 255, 255, 0.12);
+  --texto-blanco:     #ffffff;
+  --texto-50:         rgba(255, 255, 255, 0.50);
+  --texto-40:         rgba(255, 255, 255, 0.40);
+  --texto-30:         rgba(255, 255, 255, 0.30);
+  --borde:            rgba(255, 255, 255, 0.10);
+  --azul-acento:      #60A5FA;
+
+  /* Estados */
+  --verde:            #4ADE80;
+  --verde-fondo:      rgba(74, 222, 128, 0.15);
+  --amarillo:         #FBBF24;
+  --amarillo-fondo:   rgba(251, 191, 36, 0.15);
+  --rojo:             #F87171;
+  --rojo-fondo:       rgba(248, 113, 113, 0.15);
+
+  --fuente: 'Segoe UI', Roboto, sans-serif;
+  --radio:  8px;
+  --radio-grande: 14px;
 }
 
-/* Reinicio de márgenes */
+/* ── Reset ── */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ── Fondo con degradado en toda la página ── */
 body {
-  background-color: var(--bg-principal);
-  color: var(--texto-claro);
-  font-family: var(--fuente-sistema);
-  display: flex;
+  font-family: var(--fuente);
   min-height: 100vh;
+  background: var(--degradado-fondo);
+  color: var(--texto-blanco);
 }
 
 /* ==========================================================================
-   2. DISEÑO DE LA BARRA LATERAL (NAV) - COLOR OSCURO CON TEXTOS CLAROS
+   NAVBAR — MENÚ HORIZONTAL
    ========================================================================== */
 nav {
-  background-color: var(--bg-sidebar);
-  width: 260px;
-  min-height: 100vh;
+  background: var(--blanco-06);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--borde);
+  padding: 0 28px;
+  height: 58px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 30px 20px;
-  border-right: 1px solid var(--borde-sutil);
-  position: fixed;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* Nombre del sistema (EventLog) en blanco */
+/* Logo */
 nav > span:first-child {
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--texto-blanco);
+  margin-right: 32px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Opciones del menú */
+/* Lista de ítems */
 nav ul {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   list-style: none;
-  margin-top: 30px;
-  flex-grow: 1;
+  flex: 1;
 }
 
 nav ul li {
-  color: #cbd5e1; /* Texto gris claro sobre el fondo oscuro */
-  padding: 14px 16px;
-  margin-bottom: 8px;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  font-size: 13px;
   font-weight: 500;
+  color: var(--texto-50);
   cursor: pointer;
-  transition: all 0.25s ease;
+  border-radius: var(--radio);
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
-/* Cuando pasas el mouse por el menú de la barra lateral */
-nav ul li:hover { 
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+nav ul li:hover {
+  background: var(--blanco-08);
+  color: rgba(255, 255, 255, 0.90);
 }
 
-/* Opción del menú actualmente seleccionada */
 nav ul li.active {
-  background-color: var(--color-acento);
-  color: #ffffff;
+  background: var(--blanco-12);
+  color: var(--texto-blanco);
+  border-bottom-color: var(--azul-acento);
 }
 
-/* Nombres de los administradores abajo en la barra lateral */
+/* Usuario */
 nav > span:last-child {
   font-size: 12px;
-  color: #94a3b8;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 15px;
+  color: var(--texto-40);
+  white-space: nowrap;
+  margin-left: auto;
 }
 
 /* ==========================================================================
-   3. CONTENEDOR PRINCIPAL - FONDO BLANCO Y TEXTOS NEGROS
+   CONTENIDO PRINCIPAL
    ========================================================================== */
 main {
-  margin-left: 260px;
-  padding: 40px;
-  width: calc(100% - 260px);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 28px 48px;
 }
 
-/* Cada bloque .page representa el contenido de una opción del menú.
-   Por defecto está oculto; el JS le agrega/quita la clase "active". */
+/* Páginas ocultas por defecto */
 .page {
   display: none;
 }
@@ -108,124 +137,254 @@ main {
   display: block;
 }
 
+/* Título de página */
 main h1 {
-  font-size: 32px;
-  color: #0f172a; /* Negro profundo */
-  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--texto-blanco);
+  margin-bottom: 4px;
 }
 
-main p {
-  color: var(--texto-mutado);
-  margin-bottom: 30px;
-}
-
-/* Bloques para el Formulario y la Tabla */
-section {
-  background-color: var(--bg-tarjetas);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 30px;
-  border: 1px solid var(--borde-sutil);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Una sombrita suave para que resalte en el fondo blanco */
-}
-
-section h2 {
-  font-size: 20px;
-  color: #0f172a;
-  margin-bottom: 20px;
+main > .page > p {
+  font-size: 13px;
+  color: var(--texto-50);
+  margin-bottom: 24px;
 }
 
 /* ==========================================================================
-   4. ESTILOS DEL FORMULARIO
+   TARJETAS (CARDS) — Efecto vidrio
+   ========================================================================== */
+section {
+  background: var(--blanco-08);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-grande);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  transition: background 0.15s;
+}
+
+section:hover {
+  background: var(--blanco-10);
+}
+
+section h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--texto-blanco);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--borde);
+}
+
+/* ==========================================================================
+   FORMULARIO
    ========================================================================== */
 section > div:first-of-type {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  gap: 16px;
   align-items: flex-end;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
 }
 
 section label {
   display: block;
-  font-size: 14px;
-  color: var(--texto-mutado);
-  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--texto-50);
+  margin-bottom: 6px;
 }
 
-/* Cajas de texto blancas con bordes grises */
-section input, 
+section input,
 section select {
   width: 100%;
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #0f172a;
-  padding: 12px 14px;
-  border-radius: 8px;
+  background: var(--blanco-08);
+  border: 1px solid var(--blanco-15);
+  color: var(--texto-blanco);
+  padding: 10px 12px;
+  border-radius: var(--radio);
+  font-family: var(--fuente);
+  font-size: 13px;
   outline: none;
+  transition: all 0.15s;
 }
 
-/* Al hacer clic en una caja de texto se pone el borde azul */
-section input:focus, 
+section input:focus,
 section select:focus {
-  border-color: var(--color-acento);
-  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+  border-color: var(--azul-acento);
+  background: var(--blanco-12);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
 }
 
-/* Botón de agregar en color Azul */
+section input::placeholder {
+  color: var(--texto-30);
+}
+
+section select option {
+  background: #0d2150;
+  color: var(--texto-blanco);
+}
+
+/* Botón principal */
 #btn-agregar {
-  background-color: var(--color-acento);
-  color: #ffffff;
+  background: var(--degradado-boton);
+  color: var(--texto-blanco);
   border: none;
-  padding: 13px 20px;
-  border-radius: 8px;
+  padding: 11px 22px;
+  border-radius: var(--radio);
+  font-size: 13px;
   font-weight: 600;
+  font-family: var(--fuente);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 10px rgba(26, 86, 219, 0.4);
+  transition: all 0.15s;
 }
 
 #btn-agregar:hover {
-  background-color: var(--color-hover);
+  box-shadow: 0 4px 18px rgba(26, 86, 219, 0.6);
+  transform: translateY(-1px);
 }
 
 /* ==========================================================================
-   5. ESTILOS DE LA TABLA (TEXTOS EN NEGRO, ENCABEZADOS EN AZUL/GRIS)
+   TABLA
    ========================================================================== */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+thead tr {
+  background: var(--blanco-06);
 }
 
 th {
-  color: var(--color-acento); /* Encabezados en azul para dar identidad */
-  font-weight: 600;
-  font-size: 13px;
-  text-transform: uppercase;
   text-align: left;
-  padding: 14px 18px;
-  border-bottom: 2px solid var(--borde-sutil);
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--texto-50);
+  border-bottom: 1px solid var(--borde);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 td {
-  padding: 16px 18px;
-  color: #334155; /* Texto de las filas en negro/gris oscuro */
-  border-bottom: 1px solid var(--borde-sutil);
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.85);
+  vertical-align: middle;
 }
 
-/* Cambia ligeramente el fondo de la fila al pasar el mouse por encima */
-table tr:hover td {
-  background-color: #f1f5f9;
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover td {
+  background: var(--blanco-06);
 }
 
 /* ==========================================================================
-   6. DISEÑO PARA DISPOSITIVOS MÓVILES
+   BADGES (etiquetas de estado)
    ========================================================================== */
-@media (max-width: 900px) {
-  body { flex-direction: column; }
-  nav { width: 100%; min-height: auto; position: relative; padding: 20px; }
-  nav ul { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; }
-  nav ul li { margin-bottom: 0; padding: 8px 12px; }
-  nav > span:last-child { display: none; }
-  main { margin-left: 0; width: 100%; padding: 20px; }
+.badge-disponible {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--verde-fondo);
+  color: var(--verde);
+}
+
+.badge-en-uso {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--amarillo-fondo);
+  color: var(--amarillo);
+}
+
+.badge-danado {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--rojo-fondo);
+  color: var(--rojo);
+}
+
+.badge-categoria {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(96, 165, 250, 0.15);
+  color: var(--azul-acento);
+}
+
+/* Botón eliminar */
+.btn-eliminar {
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: var(--fuente);
+  background: var(--rojo-fondo);
+  color: var(--rojo);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-eliminar:hover {
+  background: rgba(248, 113, 113, 0.25);
+}
+
+/* ==========================================================================
+   MENSAJE VACÍO
+   ========================================================================== */
+.estado-vacio {
+  text-align: center;
+  padding: 28px;
+  font-size: 13px;
+  color: var(--texto-30);
+}
+
+/* ==========================================================================
+   RESPONSIVE — CELULAR
+   ========================================================================== */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 16px;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  nav ul {
+    gap: 2px;
+  }
+
+  nav ul li {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  main {
+    padding: 20px 16px 32px;
+  }
+
+  section > div:first-of-type {
+    grid-template-columns: 1fr;
+  }
 }
