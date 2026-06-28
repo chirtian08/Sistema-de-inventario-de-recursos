@@ -1,4 +1,4 @@
-// ==========================================================================
+/ ==========================================================================
 // 1. NAVEGACIÓN ENTRE SECCIONES (Inicio, Inventario, Eventos, Personal)
 // ==========================================================================
 
@@ -80,11 +80,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Función para resetear los inputs del formulario
   function limpiarFormulario() {
-    inputNombre.value = "";
-    inputCategoria.value = "";
-    inputCantidad.value = "0"; // Resetea al valor por defecto
-    inputEstado.value = "Disponible";
-  }
+  inputNombre.value    = '';
+  inputCategoria.value = '';
+  inputCantidad.value  = '';
+  inputEstado.value    = 'Disponible';
+  inputNombre.focus();
+}
+
+  function getBadgeEstado(estado) {
+  if (estado === 'Disponible') return 'badge-disponible';
+  if (estado === 'En uso')     return 'badge-en-uso';
+  if (estado === 'Dañado')     return 'badge-danado';
+}
 
   // Función encargada de borrar la tabla estática y pintar los datos reales
   function actualizarTabla() {
@@ -109,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td><strong>${recurso.nombre}</strong></td>
         <td>${recurso.categoria}</td>
         <td>${recurso.cantidad} u</td>
-        <td><span style="background-color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${recurso.estado}</span></td>
+        <td><span class="${getBadgeEstado(recurso.estado)}">${recurso.estado}</span></td>
         <td>
           <button class="btn-eliminar" data-id="${recurso.id}" style="background-color: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 500;">
             Eliminar
