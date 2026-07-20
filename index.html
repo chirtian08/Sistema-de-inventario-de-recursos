@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventLog — Plataforma Logística</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="login-seccion" style="max-width: 400px; margin: 80px auto; padding: 30px; border: 1px solid #e0e0e0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-family: sans-serif; background-color: #ffffff;">
+        <h2 style="text-align: center; color: #333; margin-bottom: 24px;">EventLog - Iniciar Sesión</h2>
+        
+        <label style="display: block; margin-bottom: 6px; color: #666; font-size: 14px;">Correo electrónico</label>
+        <input type="email" id="login-correo" placeholder="ejemplo@correo.com" style="width: 100%; margin-bottom: 16px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; color: #000;">
+        
+        <label style="display: block; margin-bottom: 6px; color: #666; font-size: 14px;">Contraseña</label>
+        <input type="password" id="login-contrasena" placeholder="Mínimo 6 caracteres" style="width: 100%; margin-bottom: 16px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; color: #000;">
+
+        <label style="display: block; margin-bottom: 6px; color: #666; font-size: 14px;">Código de equipo (solo para crear cuenta)</label>
+        <input type="text" id="registro-codigo-equipo" placeholder="Déjalo vacío para crear un equipo nuevo" style="width: 100%; margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; color: #000;">
+
+        <button id="btn-ingresar" style="width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 12px;">Ingresar</button>
+        <button id="btn-registrar" style="width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;">Crear Cuenta Nueva</button>
+        
+        <p id="login-error" style="color: #dc3545; text-align: center; margin-top: 15px; font-size: 14px; display: none;"></p>
+    </div>
+
+    <div id="app-contenido" style="display: none;">
+        
+
+  <nav>
+
+    
+    <span> EventLog</span>
+
+    
+    <ul>
+      <li data-page="inicio" class="active">Inicio</li>
+      <li data-page="inventario">Inventario</li>
+      <li data-page="eventos">Eventos</li>
+      <li data-page="personal">Personal</li>
+    </ul>
+
+    
+    <div class="user-menu" style="display: inline-block; cursor: pointer; position: relative;">
+    <span id="user-display">Cristian, Felipe, Adrian — Administradores ▾</span>
+    
+    <!-- Este div es el menú que aparecerá al hacer clic -->
+    <div id="dropdown-menu" style="display: none; position: absolute; right: 0; background-color: #1a2a40; padding: 10px; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0,0,0,0.3);">
+        <button id="btn-cerrar-sesion" style="background: none; border: none; color: white; cursor: pointer;">Cerrar Sesión</button>
+    </div>
+</div>
+
+  </nav>
+
+ 
+  <main>
+
+    <!-- ===================== PÁGINA: INICIO ===================== -->
+   <div class="page active" id="page-inicio">
+  <h1>Bienvenido a EventLog</h1>
+  <p>Resumen general de la plataforma</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icono">📦</div>
+      <div>
+        <div class="stat-valor" id="stat-total">0</div>
+        <div class="stat-label">Total recursos</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icono">✅</div>
+      <div>
+        <div class="stat-valor" id="stat-disponibles">0</div>
+        <div class="stat-label">Disponibles</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icono">🔄</div>
+      <div>
+        <div class="stat-valor" id="stat-en-uso">0</div>
+        <div class="stat-label">En uso</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icono">🔴</div>
+      <div>
+        <div class="stat-valor" id="stat-danados">0</div>
+        <div class="stat-label">Dañados</div>
+      </div>
+    </div>
+  </div>
+<!-- ================= BUSCADOR DE INVENTARIO ================= -->
+  <section style="margin-top: 25px; margin-bottom: 25px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px;">
+    <h2 style="margin-top: 0; color: white;">Buscar Recurso</h2>
+    <div style="display: flex; gap: 10px;">
+      <input type="text" id="busqueda-inventario" placeholder="Escribe el nombre del recurso (ej: Mesa)..." style="flex: 1; padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white;">
+     <button id="btn-buscar-inicio" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Buscar</button>
+    <!-- Aquí se pintarán los resultados -->
+    <div id="resultado-busqueda" style="margin-top: 15px; color: white;"></div>
+  </section>
+  <section>
+    <h2>Actividad reciente</h2>
+    <ul id="historial-lista" class="historial-lista">
+      <li class="historial-vacio">No hay actividad reciente.</li>
+    </ul>
+  </section>
+
+</div>
+
+    <!-- ===================== PÁGINA: INVENTARIO ===================== -->
+    <div class="page" id="page-inventario">
+      <h1>Inventario de recursos</h1>
+      <p>Controla los bienes físicos disponibles para tus eventos</p>
+
+      <section>
+        <h2>Agregar recurso</h2>
+
+        <div>   
+          <div>
+            <label for="inp-nombre">Nombre del recurso</label>
+            <input
+              type="text"
+              id="inp-nombre"
+              placeholder="Ej: Silla plegable negra"
+            >
+          </div>   
+          <div>
+            <label for="inp-categoria">Categoría</label>
+            <select id="inp-categoria">
+              <option value="">Selecciona una categoría</option>
+              <option value="Mobiliario">Mobiliario</option>
+              <option value="Sonido">Sonido</option>
+              <option value="Iluminación">Iluminación</option>
+              <option value="Proyección">Proyección</option>
+              <option value="Catering">Catering</option>
+              <option value="Carpas y estructuras">Carpas y estructuras</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>   
+          <div>
+            <label for="inp-cantidad">Cantidad</label>
+            <input
+              type="number"
+              id="inp-cantidad"
+              placeholder="0"
+              min="0"
+            >
+          </div>  
+          <div>
+            <label for="inp-estado">Estado</label>
+            <select id="inp-estado">
+              <option value="Disponible">Disponible</option>
+              <option value="En uso">En uso</option>
+              <option value="Dañado">Dañado</option>
+            </select>
+          </div>
+          <button id="btn-agregar">Agregar recurso</button>
+        </div>
+        <h2>Lista de recursos</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Recurso</th>
+              <th>Categoría</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-recursos-body">
+            <tr>
+              <td colspan="5">No hay recursos registrados aún.</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+    </div>
+
+    <!-- ===================== PÁGINA: EVENTOS ===================== -->
+    <div class="page" id="page-eventos">
+      <h1>Gestión de eventos</h1>
+      <p>Administra los eventos programados</p>
+
+      <section>
+        <h2>Agregar evento</h2>
+
+        <div>
+          <div>
+            <label for="inp-evento-nombre">Nombre del evento</label>
+            <input
+              type="text"
+              id="inp-evento-nombre"
+              placeholder="Ej: Festival de Verano"
+            >
+          </div>
+          <div>
+            <label for="inp-evento-fecha">Fecha</label>
+            <input
+              type="date"
+              id="inp-evento-fecha"
+            >
+          </div>
+          <div>
+            <label for="inp-evento-lugar">Lugar</label>
+            <input
+              type="text"
+              id="inp-evento-lugar"
+              placeholder="Ej: Coliseo El Pueblo"
+            >
+          </div>
+          <div>
+            <label for="inp-evento-tipo">Tipo de evento</label>
+            <select id="inp-evento-tipo">
+              <option value="">Selecciona un tipo</option>
+              <option value="Concierto">Concierto</option>
+              <option value="Conferencia">Conferencia</option>
+              <option value="Feria">Feria</option>
+              <option value="Festival">Festival</option>
+              <option value="Corporativo">Corporativo</option>
+              <option value="Deportivo">Deportivo</option>
+              <option value="Cultural">Cultural</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div>
+            <label for="inp-evento-estado">Estado</label>
+            <select id="inp-evento-estado">
+              <option value="Programado">Programado</option>
+              <option value="En curso">En curso</option>
+              <option value="Finalizado">Finalizado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+          <button id="btn-evento-agregar">Agregar evento</button>
+        </div>
+
+        <h2>Lista de eventos</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Fecha</th>
+              <th>Lugar</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-eventos-body">
+            <tr>
+              <td colspan="6">No hay eventos registrados aún.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- ===================== PÁGINA: PERSONAL ===================== -->
+    <div class="page" id="page-personal">
+      <h1>Gestión de personal</h1>
+      <p>Administra el personal asignado a tus eventos</p>
+
+      <section>
+        <h2>Agregar personal</h2>
+
+        <div>
+          <div>
+            <label for="inp-personal-nombre">Nombre completo</label>
+            <input
+              type="text"
+              id="inp-personal-nombre"
+              placeholder="Ej: Laura Gómez"
+            >
+          </div>
+          <div>
+            <label for="inp-personal-rol">Rol / Cargo</label>
+            <input
+              type="text"
+              id="inp-personal-rol"
+              placeholder="Ej: Sonidista"
+            >
+          </div>
+          <div>
+            <label for="inp-personal-telefono">Teléfono</label>
+            <input
+              type="tel"
+              id="inp-personal-telefono"
+              placeholder="Ej: 300 123 4567"
+            >
+          </div>
+          <div>
+            <label for="inp-personal-evento">Evento asignado</label>
+            <input
+              type="text"
+              id="inp-personal-evento"
+              placeholder="Ej: Festival de Verano (opcional)"
+            >
+          </div>
+          <div>
+            <label for="inp-personal-estado">Estado</label>
+            <select id="inp-personal-estado">
+              <option value="Disponible">Disponible</option>
+              <option value="Asignado">Asignado</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+          <button id="btn-personal-agregar">Agregar personal</button>
+        </div>
+
+        <h2>Lista de personal</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Rol</th>
+              <th>Teléfono</th>
+              <th>Evento asignado</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-personal-body">
+            <tr>
+              <td colspan="6">No hay personal registrado aún.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+  </main>
+    </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
